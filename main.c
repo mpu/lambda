@@ -14,6 +14,7 @@ usage(void)
 {
     puts(
         "Lambda - A lambda calculus interpreter.\n"
+        "(c) 2011 Quentin Carbonneaux\n"
         "\n"
         "  -v    Use call-by-value evaluation.\n"
         "  -h    Display this help message."
