@@ -1,0 +1,28 @@
+Lambda - A small lambda calculus interpreter in C
+
+License: MIT/X
+
+Interpret lambda terms using two reduction strategies, call-by-name or
+call-by-value. Default is call-by-name and you can use call-by-value
+by using the -v option.
+
+Use lambda by launching it and typing lambda terms. They will be
+evaluated and the result will be printed. To end an input session use
+^C or ^D or, type '.'.
+
+The syntax of lambda terms is as follows. Variables are one char long.
+Applications is coded by juxtaposing two terms. Abstractions are
+encoded by prefixing '\v' to a term were 'v' is the variable
+abstracted.  Blanks are non-significative. Parenthesis are allowed to
+delimit terms.
+
+Here is a list of sample terms:
+
+  \x x
+  (\x x) 3
+  (\x xx)(\x xx)
+
+Note that application is left associative, as usual in lambda
+calculus, thus 'abc' stands for '(ab)c'.
+
+vim: set tw=70:
