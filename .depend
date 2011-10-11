@@ -2,4 +2,3 @@ eval.o: eval.c eval.h parse.h subst.h
 main.o: main.c parse.h subst.h eval.h
 parse.o: parse.c parse.h
 subst.o: subst.c subst.h parse.h
-test_bits.o: test_bits.c
