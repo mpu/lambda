@@ -1,0 +1,19 @@
+(\t\f\?\,\1\2\S\Z
+  (\n 1 (n (\p (?(2p)) (,Zf) (,(S(1p))f)) (,Zt)))
+)
+  (\a\b a)
+  (\a\b b)
+  (\b\t\f btf)
+  (\1\2\w w12)
+  (\p p (\a\b a))
+  (\p p (\a\b b))
+  (\n\f\x nf(fx))
+  (\f\x x)
+  (\f\x (f(f(f(fx)))))
+
+This is the predecessor function,
+here it computes the predecessor
+of 4 (= (\f\x (f(f(f(fx))))));
+launch the file with:
+
+   sed '/^$/q' examples/pred.lmbd | tr -d '\n' | ./lambda
