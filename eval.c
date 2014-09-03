@@ -90,7 +90,7 @@ eval_cbv(struct term ** ppterm)
                         puts("Stack overflow.");
                         return;
                     }
-                    
+
                     stack[stackp] = &pterm->data.app.left;
                     continue;
                 }
@@ -111,6 +111,39 @@ eval_cbv(struct term ** ppterm)
 
             stack[stackp] = &pterm->data.app.right;
             continue;
+        }
+        default:
+            abort();
+        }
+    }
+}
+
+void
+eval_deep(struct term ** ppterm)
+{
+    while (1) {
+        struct term * pterm = *ppterm;
+
+        switch(pterm->type) {
+
+        case Tvar: {
+            return;
+        }
+        case Tlam: {
+            eval_deep(&pterm->data.lam.body);
+            return;
+        }
+        case Tapp: {
+            struct term * left;
+
+            eval_deep(&pterm->data.app.left);
+            left = pterm->data.app.left;
+            eval_deep(&pterm->data.app.right);
+            if (left->type == Tlam) {
+        	    eval_cbn(ppterm);
+        	    continue;
+            }
+            return;
         }
         default:
             abort();

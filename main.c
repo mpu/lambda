@@ -16,6 +16,7 @@ usage(void)
         "Lambda - A lambda calculus interpreter.\n"
         "(c) 2011 Quentin Carbonneaux\n"
         "\n"
+        "  -n    Use call-by-name evaluation.\n"
         "  -v    Use call-by-value evaluation.\n"
         "  -h    Display this help message."
     );
@@ -25,11 +26,11 @@ usage(void)
 int
 main(int argc, char ** argv)
 {
-    bool cbv = false;
+    void (*eval)(struct term **) = eval_deep;
     char buf[MAX_STRING];
     struct term * t;
 
-    (void)argc; // Placate compiler's warning.
+    (void)argc; // Silence the compiler.
 
     while (*++argv) {
         char * arg = *argv;
@@ -40,7 +41,10 @@ main(int argc, char ** argv)
             usage();
             continue;
         case 'v':
-            cbv = true;
+            eval = eval_cbv;
+            continue;
+        case 'n':
+            eval = eval_cbn;
             continue;
         default:
             ;
@@ -56,10 +60,7 @@ main(int argc, char ** argv)
             puts("! Parse error");
             continue;
         }
-        if (cbv)
-            eval_cbv(&t);
-        else
-            eval_cbn(&t);
+        eval(&t);
         parse_dump_term(t, stdout);
         parse_free_term(t);
         putchar('\n');
